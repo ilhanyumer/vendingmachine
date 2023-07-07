@@ -5,15 +5,13 @@ import name.ilhan.vendingmachine.model.*;
 import name.ilhan.vendingmachine.service.Shelves;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("client")
 public class ClientController {
 
     private List<Coin> coins = new ArrayList<>();
@@ -32,7 +30,9 @@ public class ClientController {
     public Deliver insertCoin(@RequestBody Insert insert) {
         coins.add(insert.getCoin());
         Deliver deliver = new Deliver();
-        deliver.setMessage("Success");
+        Integer sumOfCoins = coins.stream().mapToInt(Coin::getValue).sum();
+        String message = String.format("Coin %s successfully inserted. Total stotinki: %d", insert.coin.name(), sumOfCoins);
+        deliver.setMessage(message);
         return deliver;
     }
 
@@ -76,7 +76,7 @@ public class ClientController {
             deliver.setMessage("Not enough money. Please put more coins.");
             return deliver;
         }
-        deliver.setMessage("Please take the product");
+        deliver.setMessage("Please take the product and the returned coins.");
         return deliver;
     }
 
