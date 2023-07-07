@@ -32,7 +32,6 @@ public class Shelves {
         if (productSelection.getProduct().getValue() <= sumCoins) {
             this.products.remove(productSelection.getProduct());
             deliver.setProduct(productSelection.getProduct());
-            System.out.println("Now we have: " + this.products);
             Integer returnToCustomerStotinki = sumCoins - productSelection.getProduct().getValue();
             ArrayList<Coin> coinsToReturn = new ArrayList<>();
             do {

@@ -5,10 +5,7 @@ import name.ilhan.vendingmachine.model.Product;
 import name.ilhan.vendingmachine.service.Shelves;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +15,19 @@ public class AdminController {
     @Autowired
     private Shelves shelves;
 
-    @PostMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Fill the machine with products")
+    @PostMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Fill the vending machine with products. The products are: OREO, MORENI, and DEYVIN.")
     public List<Product> insertProducts(@RequestBody List<Product> products) {
         this.shelves.products.addAll(products);
+        return this.shelves.products;
+    }
+
+    @DeleteMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Remove products from the vending machine.")
+    public List<Product> deleteProducts(@RequestBody List<Product> products) {
+        for (Product product : products) {
+            this.shelves.products.remove(product);
+        }
         return this.shelves.products;
     }
 }
