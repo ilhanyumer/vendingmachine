@@ -1,7 +1,9 @@
 package name.ilhan.vendingmachine.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import name.ilhan.vendingmachine.model.Maintenance;
 import name.ilhan.vendingmachine.model.Product;
+import name.ilhan.vendingmachine.service.MaintenanceService;
 import name.ilhan.vendingmachine.service.Shelves;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,5 +42,12 @@ public class AdminController {
             this.shelves.products.remove(product);
         }
         return this.shelves.products;
+    }
+
+    @PostMapping(value = "/maintenance", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Switch maintenance mode on or off.")
+    public Maintenance changeMaintenanceMode(@RequestBody Maintenance maintenance) {
+        MaintenanceService.maintenance = maintenance.getMaintenanceMode();
+        return maintenance;
     }
 }
