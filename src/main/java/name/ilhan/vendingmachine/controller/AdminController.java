@@ -28,7 +28,8 @@ public class AdminController {
             if (occurrences < LIMIT) {
                 this.shelves.products.add(product);
             } else {
-                throw new Exception("The machine can hold at most 10 " + product + "s.");
+                String errorMessage = String.format("The machine can hold at most %d %ss.", LIMIT, product);
+                throw new Exception(errorMessage);
             }
         }
 
