@@ -45,6 +45,12 @@ public class AdminController {
         return this.shelves.products;
     }
 
+    @GetMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Show products that are placed into the vending machine.")
+    public List<Product> showProducts() {
+        return this.shelves.products;
+    }
+
     @PostMapping(value = "/maintenance", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Switch maintenance mode on or off.")
     public Maintenance changeMaintenanceMode(@RequestBody Maintenance maintenance) {
