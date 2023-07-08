@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("client")
 public class ClientController {
 
-    private CoinBox coinBox;
-
     @Autowired
     private Shelves shelves;
 
@@ -34,18 +32,14 @@ public class ClientController {
     @PostMapping(value = "/coins", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Insert a coin. Please insert one coin at a time. One by one.")
     public Deliver insertCoin(@RequestBody Insert insert) {
-        Deliver deliver = new Deliver();
 
         if (MaintenanceService.maintenance) {
+            Deliver deliver = new Deliver();
             deliver.setMessage("The vending machine is in maintenance mode. Please use it later.");
             return deliver;
         }
 
-        CoinBox.coins.add(insert.getCoin());
-        Integer sumOfCoins = CoinBox.coins.stream().mapToInt(Coin::getValue).sum();
-        String message = String.format("Coin %s successfully inserted. Total stotinki: %d", insert.coin.name(), sumOfCoins);
-        deliver.setMessage(message);
-        return deliver;
+        return shelves.insertCoins(insert);
     }
 
     @PostMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

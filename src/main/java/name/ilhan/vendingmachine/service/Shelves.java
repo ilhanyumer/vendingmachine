@@ -1,9 +1,6 @@
 package name.ilhan.vendingmachine.service;
 
-import name.ilhan.vendingmachine.model.Coin;
-import name.ilhan.vendingmachine.model.Deliver;
-import name.ilhan.vendingmachine.model.Product;
-import name.ilhan.vendingmachine.model.ProductSelection;
+import name.ilhan.vendingmachine.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +13,15 @@ public class Shelves {
 
     @Autowired
     public CoinBox coinBox;
+
+    public Deliver insertCoins(Insert insert) {
+        Deliver deliver = new Deliver();
+        CoinBox.coins.add(insert.getCoin());
+        Integer sumOfCoins = CoinBox.coins.stream().mapToInt(Coin::getValue).sum();
+        String message = String.format("Coin %s successfully inserted. Total stotinki: %d", insert.coin.name(), sumOfCoins);
+        deliver.setMessage(message);
+        return deliver;
+    }
 
     public Deliver buyProduct(ProductSelection productSelection) {
         Deliver deliver = new Deliver();
