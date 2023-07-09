@@ -1,6 +1,7 @@
 package name.ilhan.vendingmachine;
 
 import name.ilhan.vendingmachine.model.*;
+import name.ilhan.vendingmachine.service.CoinBox;
 import name.ilhan.vendingmachine.service.Shelves;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,12 +9,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 class VendingmachineApplicationTests {
 
     @Test
     void contextLoads() {
+    }
+
+    @Test
+    void testShowCoins() {
+        Insert insert = new Insert();
+        insert.setCoin(Coin.ST20);
+        Shelves shelves = new Shelves();
+        shelves.insertCoins(insert);
+        Deliver deliver = shelves.showCoins();
+        String message = deliver.getMessage();
+        Product product = deliver.getProduct();
+        ArrayList<Coin> coins = deliver.getCoins();
+
+        assertEquals(message, "You have inserted 20 stotinki.");
+        assertNull(product);
+        assertNull(coins);
+
+        CoinBox.coins.clear();
     }
 
     @Test

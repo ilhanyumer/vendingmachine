@@ -23,6 +23,14 @@ public class Shelves {
         return deliver;
     }
 
+    public Deliver showCoins() {
+        Deliver deliver = new Deliver();
+        Integer sumOfCoins = CoinBox.coins.stream().mapToInt(Coin::getValue).sum();
+        String message = String.format("You have inserted %d stotinki.", sumOfCoins);
+        deliver.setMessage(message);
+        return deliver;
+    }
+
     public Deliver buyProduct(ProductSelection productSelection) {
         Deliver deliver = new Deliver();
         if (!this.products.contains(productSelection.getProduct())) {
