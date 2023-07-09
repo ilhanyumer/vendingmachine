@@ -30,7 +30,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/coins", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Insert a coin. Please insert one coin at a time. One by one.")
+    @Operation(summary = "Insert a coin. Please insert one coin at a time. One by one. The coins are: ST10, ST20, ST50, LV1, LV2")
     public Deliver insertCoin(@RequestBody Insert insert) {
 
         if (MaintenanceService.maintenance) {
@@ -43,7 +43,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Select a product.")
+    @Operation(summary = "Select a product. The products are: OREO, MORENI, and DEYVIN.")
     public Deliver selectProduct(@RequestBody ProductSelection productSelection) {
 
         if (MaintenanceService.maintenance) {
