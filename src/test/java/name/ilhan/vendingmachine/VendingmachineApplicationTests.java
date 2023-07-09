@@ -37,7 +37,7 @@ class VendingmachineApplicationTests {
     }
 
     @Test
-    void testShelves() {
+    void testBuyProduct() {
         Insert insert = new Insert();
         insert.setCoin(Coin.LV1);
         Shelves shelves = new Shelves();
