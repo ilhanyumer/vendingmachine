@@ -24,7 +24,7 @@ public class VendingmachineApplication {
                         .license(new License().name("All rights reserved").url("https://ilhan.name")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Vending Machine User Manual")
-                        .url("https://ilhan.name"));
+                        .url("https://github.com/ilhanyumer/vendingmachine"));
     }
 
 }
